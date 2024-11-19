@@ -1,93 +1,100 @@
 # Parcijalni ispit - Napredni koncepti programiranja u programskom jeziku Python
 
+## Zadaci
+
+1. Refaktorirati postojeće rješenje iz Modula 2 kako bi koristili modularnu arhitekturu.
+2. Uvesti SQLite bazu podataka za trajno pohranjivanje podataka umjesto JSON datoteka.
+3. Kreirati REST API klijent za dohvaćanje podataka o korisnicima i prikazivanje prijavljenog korisnika.
+4. Razdvojiti korisničko sučelje u zaseban modul i proširiti ga prikazom korisnika i tvrtke u zaglavlju.
+
+
 ## Upute za Rješavanje Zadatka
 
-### Priprema okruženja
-1. Kreirajte **fork** repozitorija na GitHubu: [https://github.com/algebra-pydev/parcijalni-ispit-03-napredni-koncepti-programiranja-u-programskom-jeziku-python](https://github.com/algebra-pydev/parcijalni-ispit-03-napredni-koncepti-programiranja-u-programskom-jeziku-python).
-2. Imenovanje repozitorija u formatu `pydev_parcijalni_ime_prezime` (primjer: `pydev_parcijalni_pero_peric`).
-3. **VAŽNO:** Nemojte kreirati "clone" repozitorija jer nemate pravo mijenjanja.
+1. **Priprema okruženja:**
+   - Kreirajte "fork" repozitorija na GitHubu.
+   - Dodijelite repozitoriju naziv u formatu `pydev_parcijalni_ime_prezime` (primjer: `pydev_parcijalni_pero_peric`). 
+   - **VAŽNO:** Nemojte kreirati "clone" repozitorija jer nemate pravo mijenjanja.
 
-### Postavljanje Projekta
-1. Nakon što ste kreirali fork, klonirajte repozitorij s vašeg GitHub profila na lokalno računalo.
-2. Postavite novo virtualno okruženje pomoću `venv`.
-3. Instalirajte sve potrebne module koristeći `requirements.txt` kako biste osigurali da aplikacija ima sve potrebne biblioteke.
+2. **Postavljanje Projekta:**
+   - Nakon što ste kreirali fork, klonirajte repozitorij s vašeg GitHub profila na lokalno računalo koristeći GitHub Desktop ili drugu omiljenu metodu.
+   - Uklonite postojeće virtualno okruženje ako je prisutno i kreirajte novo koristeći `venv` (Python virtualno okruženje).
+   - Instalirajte sve potrebne module pomoću `requirements.txt` kako biste osigurali da aplikacija ima sve potrebne biblioteke.
 
----
+3. **Refaktoriranje postojećeg koda:**
+   - Kreirajte direktorij `models/` i unutar njega kreirajte module:
+     - `customer_model.py` za rad s kupcima.
+     - `product_model.py` za rad s proizvodima.
+     - `offer_model.py` za rad s ponudama.
+   - Svaki modul treba sadržavati klasu koja predstavlja odgovarajuće entitete (npr. `Customer`, `Product`, `Offer`), uključujući metode za interakciju s bazom podataka.
 
-### Struktura Aplikacije i Pristup Bazi Podataka
-- Aplikacija koristi **modularnu** i **objektno-orijentiranu** strukturu s podjelom na slojeve:
-  - **UI Layer**
-  - **Service Layer**
-  - **Repository Layer**
-- **Folderi po funkcionalnostima** uključuju slojeve i module specifične za funkcionalnosti i pristup SQLite bazi podataka.
+4. **Kreiranje SQLite baze podataka:**
+   - Dodajte datoteku `database.py` koja sadrži klasu za upravljanje bazom (koristeći `sqlite3`).
+   - Kreirajte tablice za `customers`, `products`, i `offers`.
+   - Implementirajte metode za:
+     - Dodavanje novih zapisa.
+     - Ažuriranje postojećih zapisa.
+     - Dohvaćanje zapisa na temelju upita.
 
----
+5. **REST API integracija:**
+   - Kreirajte direktorij `services/` i unutar njega modul `user_service.py`.
+   - Koristite biblioteku `requests` za dohvaćanje podataka s endpointa `https://jsonplaceholder.typicode.com/users`.
+   - Implementirajte metodu koja dohvaća podatke o korisnicima i omogućuje korisniku odabir jednog korisnika kao trenutno prijavljenog.
 
-### Zadaci za Implementaciju (Skraćeni Opseg)
+6. **Korisničko sučelje:**
+   - Kreirajte modul `user_interface.py` koji:
+     - Generira tekstualni izbornik i prikazuje opcije.
+     - Prikazuje podatke o prijavljenom korisniku i tvrtki u zaglavlju.
+   - Proširite sučelje tako da, uz trenutne funkcionalnosti, uvijek prikazuje:
+     - Ime i email prijavljenog korisnika.
+     - Informacije o tvrtki (npr. naziv, email, VAT ID).
 
-1. **Ponude (Offers)**:
-   - **Dohvaćanje svih ponuda** i **dohvaćanje ponude po ID-u** pomoću SQLite baze podataka.
-   - **Kreiranje nove ponude** s automatskim izračunom iznosa (sub_total, tax, total).
-   - Implementirati potrebne funkcije samo u **sqlite3 repozitoriju**.
+7. **Implementacija logike za prijavljenog korisnika:**
+   - U glavnom modulu (`main.py`) inicijalizirajte prijavljenog korisnika koristeći REST API integraciju.
+   - Prikazujte podatke o prijavljenom korisniku u svim dijelovima aplikacije.
 
-2. **Proizvodi (Products)**:
-   - **Dohvaćanje svih proizvoda** i **dodavanje novog proizvoda**.
-   - Implementirati repozitorij s pristupom bazi koristeći samo SQLAlchemy.
 
-3. **Korisnici (Users)**:
-   - **Dohvaćanje podataka o korisnicima** s REST API-ja [JSONPlaceholder Users](https://jsonplaceholder.typicode.com/users).
-   - Implementirajte repozitorij koji dohvaća podatke putem API-ja i omogućuje njihovo prikazivanje u aplikaciji.
+#### Očekivani rezultat:
+- Aplikacija koristi SQLite za trajno pohranjivanje podataka.
+- Kod je organiziran u module (`models`, `services`, `user_interface`).
+- Korisničko sučelje je unaprijeđeno i modularizirano.
+- API integracija omogućuje dinamičko prikazivanje podataka o korisnicima.
 
-4. **Kupci (Customers)**:
-   - **Dohvaćanje svih kupaca** i **dodavanje novog kupca** pomoću SQLite baze podataka.
-   - Implementirati potrebne funkcije samo u **sqlite3 repozitoriju**.
+#### Primjer strukture direktorija:
+```
+offers_calculator/
+│
+├── main.py
+├── database.py
+├── user_interface.py
+├── services/
+│   └── user_service.py
+├── models/
+│   ├── customer_model.py
+│   ├── product_model.py
+│   └── offer_model.py
+└── db.sqlite3
+```
 
----
-
-### Zadaci po Funkcionalnostima (Detalji)
-
-#### 1. Ponude (Offers)
-   - **sqlite3 repozitorij**:
-     - `get_all_offers`: dohvaća sve ponude iz baze.
-     - `get_offer_by_id`: dohvaća specifičnu ponudu prema ID-u.
-     - `create_offer`: kreira novu ponudu u bazi, dodaje podatke o stavkama i računa iznos.
-
-   - Polaznici trebaju dopuniti kod i implementirati funkcije u `repository_sqlite.py`, a zatim testirati funkcionalnost pomoću UI sloja.
-
-#### 2. Proizvodi (Products)
-   - **SQLAlchemy repozitorij**:
-     - `get_all_products`: dohvaća sve proizvode iz baze.
-     - `add_product`: dodaje novi proizvod u bazu.
-
-   - Polaznici trebaju dopuniti SQLAlchemy repozitorij s ovim funkcijama. Servisni sloj koristi ove funkcije za rad s proizvodima.
-
-#### 3. Korisnici (Users)
-   - **REST API repozitorij**:
-     - `get_all_users`: dohvaća sve korisnike s API-ja JSONPlaceholder.
-
-   - Polaznici trebaju implementirati funkciju za dohvaćanje svih korisnika pomoću API-ja i prikazati ih u UI sloju.
-
-#### 4. Kupci (Customers)
-   - **sqlite3 repozitorij**:
-     - `get_all_customers`: dohvaća sve kupce iz baze.
-     - `add_customer`: dodaje novog kupca u bazu.
-
-   - Polaznici trebaju dopuniti SQLite repozitorij za funkcionalnost `customers` te testirati u UI sloju.
+#### Napomena:
+- Pazite na pravilan unos TypeHints u svim funkcijama.
+- Komentirajte kod i koristite docstringove za sve klase i metode.
 
 ---
 
-### Primjer Rješavanja Zadatka
+## Primjer Rješavanja Zadatka
 
-#### Početni Kod Funkcije
+### Početni Kod Metode
+
 ```python
-# TODO: Implementirati funkciju za dohvaćanje svih ponuda
-def get_all_offers():
+# TODO: Implementirati metodu za dohvaćanje ponuda iz baze
+def get_offers(self):
     pass
 ```
 
-#### Implementirani Kod Funkcije
+### Implementirani Kod Metode
+
 ```python
-def get_all_offers():
+def get_offers(self):
     query = "SELECT * FROM offers"
     cursor = self.connection.cursor()
     cursor.execute(query)
@@ -95,28 +102,24 @@ def get_all_offers():
     return results
 ```
 
-> **Napomena:** Funkcija `get_all_offers` koristi SQL upit za dohvaćanje svih ponuda iz baze. Prilikom implementacije obratite pažnju na sve komentare označene `#TODO` i slijedite predloženu strukturu koda.
-
----
+> **Napomena:** Prilikom implementacije vodite računa o modularnosti i slojevima aplikacije. Koristite klase za sve glavne funkcionalnosti i pridržavajte se zadane strukture aplikacije.
 
 ### Dodatne Upute
 
-- Nemojte mijenjati druge dijelove aplikacije. Ako vaša implementacija ne radi, prilagodite svoje rješenje aplikaciji, a ne obrnuto.
-- Koristite `TypeHints` prema uputama u komentarima kako biste osigurali konzistentnost tipova podataka.
+- Nemojte mijenjati druge dijelove aplikacije. Ako Vaša implementacija ne radi, prilagodite svoje rješenje aplikaciji, a ne obrnuto.
+- Koristite `TypeHints` za sve metode kako biste osigurali konzistentnost tipova podataka.
 
----
-
-### Podnošenje Rješenja
+## Podnošenje Rješenja
 
 1. Nakon što završite implementaciju:
-   - Napravite commit za sve promjene koje ste unijeli koristeći opciju `git commit`.
-   - Pushajte promjene na vaš GitHub repozitorij pomoću `git push`.
+   - Napravite commit za sve promjene koristeći `git commit`.
+   - Pushajte promjene na vaš GitHub repozitorij koristeći `git push`.
 
 2. **Podjela Repozitorija s Predavačem**:
    - Otvorite vaš repozitorij na GitHubu.
    - Kliknite na karticu **Settings** u repozitoriju.
    - Pronađite opciju **Collaborators** i dodajte predavača kao **Contributor**.
    - Unesite GitHub korisničko ime predavača i pošaljite pozivnicu za pristup.
-   - **VAŽNO**: Uvjerite se da su sve potrebne promjene commitane i pushane prije dodavanja predavača, kako bi predavač mogao vidjeti kompletno rješenje.
+   - Provjerite da su sve promjene commitane i pushane prije dodavanja predavača.
 
 **Sretno!**
