@@ -76,33 +76,7 @@ offers_calculator/
 ```
 
 #### Napomena:
-- Pazite na pravilan unos TypeHints u svim funkcijama.
-- Komentirajte kod i koristite docstringove za sve klase i metode.
-
----
-
-## Primjer Rješavanja Zadatka
-
-### Početni Kod Metode
-
-```python
-# TODO: Implementirati metodu za dohvaćanje ponuda iz baze
-def get_offers(self):
-    pass
-```
-
-### Implementirani Kod Metode
-
-```python
-def get_offers(self):
-    query = "SELECT * FROM offers"
-    cursor = self.connection.cursor()
-    cursor.execute(query)
-    results = cursor.fetchall()
-    return results
-```
-
-> **Napomena:** Prilikom implementacije vodite računa o modularnosti i slojevima aplikacije. Koristite klase za sve glavne funkcionalnosti i pridržavajte se zadane strukture aplikacije.
+- Prilikom implementacije vodite računa o modularnosti i slojevima aplikacije. Koristite klase za sve glavne funkcionalnosti i pridržavajte se zadane strukture aplikacije.
 
 ### Dodatne Upute
 
