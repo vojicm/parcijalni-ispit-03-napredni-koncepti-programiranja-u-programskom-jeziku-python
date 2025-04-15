@@ -27,6 +27,8 @@ def create_new_offer(offers, products, customers):
     for idx, customer in enumerate(customers, 1):
         print(f"{idx}. {customer['name']} ({customer['email']})")
 
+        
+
     customer_choice = int(input("Select a customer by number: ")) - 1
     customer = customers[customer_choice]
     date = input("Enter offer date (YYYY-MM-DD): ")
