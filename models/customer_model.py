@@ -5,14 +5,12 @@
 
 class Customer ():
     def __init__(self, 
-                 id, 
                  name, 
-                 description, 
-                 price):
-        self.id = id
+                 email, 
+                 vat_id):
         self.name = name
-        self.description = description
-        self.price = price
+        self.email = email
+        self.vat_id = vat_id
     
     def __repr__(self):
-        return f'{self.name} ({self.id}) - {self.price}'
+        return f'{self.name} ({self.vat_id}) - {self.email}'
