@@ -6,10 +6,10 @@
 
 class Product ():
     def __init__(self, 
-                 id, 
-                 name, 
-                 description, 
-                 price):
+                 id: int, 
+                 name: str, 
+                 description: str, 
+                 price: float):
         self.id = id
         self.name = name
         self.description = description

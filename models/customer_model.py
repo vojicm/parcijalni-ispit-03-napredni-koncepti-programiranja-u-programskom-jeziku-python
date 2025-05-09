@@ -5,9 +5,9 @@
 
 class Customer ():
     def __init__(self, 
-                 name, 
-                 email, 
-                 vat_id):
+                 name: str, 
+                 email: str, 
+                 vat_id: str):
         self.name = name
         self.email = email
         self.vat_id = vat_id
