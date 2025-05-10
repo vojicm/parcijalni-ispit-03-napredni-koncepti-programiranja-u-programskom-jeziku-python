@@ -1,3 +1,3 @@
-from .customer_model import Customer
-from .offer_model import OfferItem, Offer
-from .product_model import Product
+from models.customer_model import Customer
+from models.offer_model import Offer
+from models.product_model import Product, ProductItem

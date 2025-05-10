@@ -1,27 +1,10 @@
 from datetime import datetime as dt
 from typing import List
 
-from .product_model import Product
-
 from .customer_model import Customer
+from .product_model import Product, ProductItem
 
 
-
-class OfferItem:
-    def __init__(self, 
-                 product_id:int,
-                 product_name: str,
-                 description:str,
-                 quantity:int,
-                 item_total: float):
-        self.product_id = product_id
-        self.product_name = product_name
-        self.description = description
-        self.quantity = quantity
-        self.item_total = item_total
-    
-    def __repr__(self):
-        return f'{self.product_id}. {self.product_name}, {self.quantity}'
 
 
 
@@ -29,22 +12,52 @@ class Offer:
     def __init__(self,
                  offer_number:int, 
                  customer: Customer = None, 
-                 offer_date: str = dt.today().strftime('%Y-%m-%d'), 
-                 items:List[Product] = [],
-                 sub_total: float,
-                 tax: float, 
-                 total: float):
+                 date_str: str = dt.today().strftime('%Y-%m-%d'),
+                 items:List[ProductItem] = [],
+                 tax: float = 25.0
+                 ):
         
         self.offer_number = offer_number
         self.customer = customer
-        self.date = offer_date
+        self.date_str = date_str
+        self.date = None
         self.items = items
-        self.sub_total = sub_total
+        self.sub_total=0.00
         self.tax = tax
-        self.total = total
+        self.tax_value = 0.0
+        self.total = 0.00
 
-    def __repr__(self):
-        return f'{self.offer_number}. {self.customer}, {self.total}, '
+
+        self.update_offer_date()
+        self.update_totals()
+
+    def update_offer_date (self):
+        self.date = dt.strptime(self.date_str, '%Y-%m-%d')
+    
+    def update_totals(self): 
+        if len(self.items)>0:
+            for item in self.items:
+               self.sub_total += item.item_total
+        self.tax_value = self.sub_total * (self.tax/100)
+        self.total = self.sub_total + self.tax_value
+    
+
+        
+    def create_offer (self):
+        pass
+
+    def get_offer (self):
+        pass
+
+    def update_offer (self):
+        pass
+
+    def delete_offer (self):
+        pass
+
+        
+      
+
 
 
 
