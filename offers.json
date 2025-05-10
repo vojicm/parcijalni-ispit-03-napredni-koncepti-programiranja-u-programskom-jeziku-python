@@ -212,5 +212,27 @@
         "sub_total": 700.0,
         "tax": 70.0,
         "total": 770.0
+    },
+    {
+        "offer_number": 8,
+        "customer": {
+            "name": "Tech Solutions",
+            "email": "info@techsolutions.com",
+            "vat_id": "01234567890"
+        },
+        "date": "2025-05-10",
+        "items": [
+            {
+                "product_id": 1,
+                "product_name": "Laptop",
+                "description": "15-inch display, 8GB RAM, 256GB SSD",
+                "price": 800.0,
+                "quantity": 30,
+                "item_total": 24000.0
+            }
+        ],
+        "sub_total": 24000.0,
+        "tax": 4800.0,
+        "total": 28800.0
     }
 ]
