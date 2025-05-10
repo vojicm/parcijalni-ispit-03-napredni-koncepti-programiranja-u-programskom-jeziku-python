@@ -134,6 +134,7 @@ def update_product(product: Tuple):
 update_product_item_query = """ UPDATE product_items SET name=?, description=?, quantity=?, offer_id=?, product_id=? WHERE id = ? """
 def update_product_item(product_item: Tuple):
     commit_in_db(update_product_item_query, product_item)
+    
 # DELETE
 
     # DELETE CUSTOMER

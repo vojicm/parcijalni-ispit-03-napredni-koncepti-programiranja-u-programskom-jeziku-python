@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 import json
+import sys
 
 
 OFFERS_FILE = "offers.json"
@@ -205,7 +206,7 @@ def menu(offers, products, customers):
             display_offers(offers)
     elif choice == "5":
         print("Zatvaranje aplikacije.")
-        return
+        sys.exit()
     else:
         print("Krivi izbor. Pokušajte ponovno.")
         input("Pritisnite Enter za nastavak...")  # Pause before re-displaying the menu
