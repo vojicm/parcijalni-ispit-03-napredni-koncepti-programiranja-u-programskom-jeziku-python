@@ -77,21 +77,22 @@ get_product_item = """SELECT * FROM product_items"""
     # UPDATE CUSTOMER
 update_customer = """ UPDATE customers SET name = ?, email = ?, vat_id = ? WHERE id = ? """
     # UPDATE OFFER
-
+update_offer = """ UPDATE offers SET offer_number = ?, date = ? WHERE id = ? """
     # UPDATE PRODUCT
-
+update_product = """ UPDATE products SET name = ?, description = ?, price = ? WHERE id = ? """
     # UPDATE PRODUCT_ITEM
+update_product_item = """ UPDATE product_items SET name=?, description=?, quantity=?, offer_id=?, product_id=? WHERE id = ? """
 
 # DELETE
 
     # DELETE CUSTOMER
-
+delete_customer = """DELETE FROM customers WHERE id = ?"""
     # DELETE OFFER
-
+delete_offer = """DELETE FROM offers WHERE id = ?"""
     # DELETE PRODUCT
-
+delete_product = """DELETE FROM products WHERE id = ?"""
     # DELETE PRODUCT_ITEM
-
+delete_product_item = """DELETE FROM product_items WHERE id = ?"""
 
 
 def create_db ():
