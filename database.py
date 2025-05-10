@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS product_items (
 
 
 
-def commit_in_db(query:str, params: Any = None):
+def commit_in_db(query:str, params: Any = ()):
     try:
         with sqlite3.connect('db.sqlite3') as conn:
             cursor = conn.cursor()
@@ -53,7 +53,7 @@ def commit_in_db(query:str, params: Any = None):
     except Exception as ex:
         print (f'Dogodila se greska u create_in_db: {ex}')
 
-def fetchall_from_db(query:str, params: Any = None):
+def fetchall_from_db(query:str, params: Any = ()):
     try:
         with sqlite3.connect('db.sqlite3') as conn:
             cursor = conn.cursor()
@@ -79,7 +79,7 @@ def create_product(product: Tuple):
     # CREATE PRODUCT_ITEM
 create_product_item_query = """INSERT INTO product_items(name, description, quantity, offer_id, product_id) VALUES(?,?,?,?,?)"""
 def create_product_item(product_item:Tuple):
-    commit_in_db(create_product_query, product_item)
+    commit_in_db(create_product_item_query, product_item)
 # GET
     # GET CUSTOMER
 get_customer_query = """SELECT * FROM customers WHERE id = ?"""
@@ -92,11 +92,11 @@ def get_offer(offer_id:Tuple):
     # GET PRODUCT
 get_product_query = """SELECT * FROM products WHERE id = ?"""
 def get_product(product_id:Tuple):
-    fetchall_from_db(get_offer_query, product_id) 
+    fetchall_from_db(get_product_query, product_id) 
     # GET PRODUCT_ITEM
 get_product_item_query = """SELECT * FROM product_items WHERE id = ?"""
 def get_product_item(product_item_id:Tuple):
-    fetchall_from_db(get_offer_query, product_item_id) 
+    fetchall_from_db(get_product_item_query, product_item_id) 
 
 # GET_ALL
     # GET_ALL CUSTOMER
@@ -139,19 +139,19 @@ def update_product_item(product_item: Tuple):
     # DELETE CUSTOMER
 delete_customer_query = """DELETE FROM customers WHERE id = ?"""
 def delete_customer(customer_id:Tuple):
-    fetchall_from_db(delete_customer_query, customer_id)
+    commit_in_db(delete_customer_query, customer_id)
     # DELETE OFFER
 delete_offer_query = """DELETE FROM offers WHERE id = ?"""
 def delete_offer(offer_id:Tuple):
-    fetchall_from_db(delete_offer_query, offer_id)
+    commit_in_db(delete_offer_query, offer_id)
     # DELETE PRODUCT
 delete_product_query = """DELETE FROM products WHERE id = ?"""
 def delete_product(product_id:Tuple):
-    fetchall_from_db(delete_product_query, product_id)
+    commit_in_db(delete_product_query, product_id)
     # DELETE PRODUCT_ITEM
 delete_product_item_query = """DELETE FROM product_items WHERE id = ?"""
 def delete_product_item(product_item_id:Tuple):
-    fetchall_from_db(delete_product_item_query, product_item_id)
+    commit_in_db(delete_product_item_query, product_item_id)
 
 def create_db ():
     try:

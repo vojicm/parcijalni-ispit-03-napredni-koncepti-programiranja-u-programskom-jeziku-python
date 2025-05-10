@@ -185,7 +185,7 @@ def print_offer(offer):
 
 
 def menu(offers, products, customers):
-    os.system('cls')  # Use 'clear' on Linux/Mac
+    #os.system('cls')  # Use 'clear' on Linux/Mac
     print("\nOffers Calculator izbornik:")
     print("1. Kreiraj novu ponudu")
     print("2. Upravljanje proizvodima")

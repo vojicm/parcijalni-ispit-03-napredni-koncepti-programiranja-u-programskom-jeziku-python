@@ -6,8 +6,6 @@ from .product_model import Product, ProductItem
 
 
 
-
-
 class Offer:
     def __init__(self,
                  offer_number:int, 
