@@ -1,4 +1,5 @@
 import sqlite3
+from typing import Any, Tuple
 
 
 # SQL Queries
@@ -42,58 +43,115 @@ CREATE TABLE IF NOT EXISTS product_items (
 """
 
 
+
+def commit_in_db(query:str, params: Any = None):
+    try:
+        with sqlite3.connect('db.sqlite3') as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, params) 
+            conn.commit()
+    except Exception as ex:
+        print (f'Dogodila se greska u create_in_db: {ex}')
+
+def fetchall_from_db(query:str, params: Any = None):
+    try:
+        with sqlite3.connect('db.sqlite3') as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, params) 
+            return cursor.fetchall()
+    except Exception as ex:
+        print (f'Dogodila se greska u fetchall_from_db: {ex}')
+
+
 # CREATE
     # CREATE CUSTOMER
-create_customer = """INSERT INTO customers(name, email, vat_id) VALUES(?,?,?)"""
+create_customer_query = """INSERT INTO customers(name, email, vat_id) VALUES(?,?,?)"""
+def create_customer(customer: Tuple):
+    commit_in_db(create_customer_query, customer)
     # CREATE OFFER
-create_offer = """INSERT INTO offers(offer_number, date) VALUES(?,?)"""
+create_offer_query= """INSERT INTO offers(offer_number, date) VALUES(?,?)"""
+def create_offer(offer: Tuple):
+    commit_in_db(create_offer_query, offer)
     # CREATE PRODUCT
-create_product = """INSERT INTO products(name, description, price) VALUES(?,?,?)"""
+create_product_query = """INSERT INTO products(name, description, price) VALUES(?,?,?)"""
+def create_product(product: Tuple):
+    commit_in_db(create_product_query, product)
     # CREATE PRODUCT_ITEM
-create_product_item = """INSERT INTO product_items(name, description, quantity, offer_id, product_id) VALUES(?,?,?,?,?)"""
-
+create_product_item_query = """INSERT INTO product_items(name, description, quantity, offer_id, product_id) VALUES(?,?,?,?,?)"""
+def create_product_item(product_item:Tuple):
+    commit_in_db(create_product_query, product_item)
 # GET
     # GET CUSTOMER
-get_customer = """SELECT * FROM customers WHERE id = ?"""
+get_customer_query = """SELECT * FROM customers WHERE id = ?"""
+def get_customer(customer_id:Tuple):
+    fetchall_from_db(get_customer_query, customer_id)
     # GET OFFER
-get_offer = """SELECT * FROM offers WHERE id = ?"""
+get_offer_query = """SELECT * FROM offers WHERE id = ?"""
+def get_offer(offer_id:Tuple):
+    fetchall_from_db(get_offer_query, offer_id)   #(1,) - offers id=1
     # GET PRODUCT
-get_product = """SELECT * FROM products WHERE id = ?"""
+get_product_query = """SELECT * FROM products WHERE id = ?"""
+def get_product(product_id:Tuple):
+    fetchall_from_db(get_offer_query, product_id) 
     # GET PRODUCT_ITEM
-get_product_item = """SELECT * FROM product_items WHERE id = ?"""
+get_product_item_query = """SELECT * FROM product_items WHERE id = ?"""
+def get_product_item(product_item_id:Tuple):
+    fetchall_from_db(get_offer_query, product_item_id) 
 
 # GET_ALL
     # GET_ALL CUSTOMER
-get_customer = """SELECT * FROM customers"""
+get_customers_query = """SELECT * FROM customers"""
+def get_customers():
+    fetchall_from_db(get_customers_query)
     # GET_ALL OFFER
-get_offer = """SELECT * FROM offers"""
+get_offers_query = """SELECT * FROM offers"""
+def get_offers():
+    fetchall_from_db(get_offers_query)
     # GET_ALL PRODUCT
-get_product = """SELECT * FROM products"""
+get_products_query = """SELECT * FROM products"""
+def get_products():
+    fetchall_from_db(get_products_query)
     # GET_ALL PRODUCT_ITEM
-get_product_item = """SELECT * FROM product_items"""
+get_product_items_query = """SELECT * FROM product_items"""
+def get_product_items():
+    fetchall_from_db(get_product_items_query)
 
 # UPDATE
 
     # UPDATE CUSTOMER
-update_customer = """ UPDATE customers SET name = ?, email = ?, vat_id = ? WHERE id = ? """
+update_customer_query = """ UPDATE customers SET name = ?, email = ?, vat_id = ? WHERE id = ? """
+def update_customer(customer: Tuple):
+    commit_in_db(update_customer_query, customer)
     # UPDATE OFFER
-update_offer = """ UPDATE offers SET offer_number = ?, date = ? WHERE id = ? """
+update_offer_query = """ UPDATE offers SET offer_number = ?, date = ? WHERE id = ? """
+def update_offer(offer: Tuple):
+    commit_in_db(update_offer_query, offer)
     # UPDATE PRODUCT
-update_product = """ UPDATE products SET name = ?, description = ?, price = ? WHERE id = ? """
+update_product_query = """ UPDATE products SET name = ?, description = ?, price = ? WHERE id = ? """
+def update_product(product: Tuple):
+    commit_in_db(update_product_query, product)
     # UPDATE PRODUCT_ITEM
-update_product_item = """ UPDATE product_items SET name=?, description=?, quantity=?, offer_id=?, product_id=? WHERE id = ? """
-
+update_product_item_query = """ UPDATE product_items SET name=?, description=?, quantity=?, offer_id=?, product_id=? WHERE id = ? """
+def update_product_item(product_item: Tuple):
+    commit_in_db(update_product_item_query, product_item)
 # DELETE
 
     # DELETE CUSTOMER
-delete_customer = """DELETE FROM customers WHERE id = ?"""
+delete_customer_query = """DELETE FROM customers WHERE id = ?"""
+def delete_customer(customer_id:Tuple):
+    fetchall_from_db(delete_customer_query, customer_id)
     # DELETE OFFER
-delete_offer = """DELETE FROM offers WHERE id = ?"""
+delete_offer_query = """DELETE FROM offers WHERE id = ?"""
+def delete_offer(offer_id:Tuple):
+    fetchall_from_db(delete_offer_query, offer_id)
     # DELETE PRODUCT
-delete_product = """DELETE FROM products WHERE id = ?"""
+delete_product_query = """DELETE FROM products WHERE id = ?"""
+def delete_product(product_id:Tuple):
+    fetchall_from_db(delete_product_query, product_id)
     # DELETE PRODUCT_ITEM
-delete_product_item = """DELETE FROM product_items WHERE id = ?"""
-
+delete_product_item_query = """DELETE FROM product_items WHERE id = ?"""
+def delete_product_item(product_item_id:Tuple):
+    fetchall_from_db(delete_product_item_query, product_item_id)
 
 def create_db ():
     try:
