@@ -16,8 +16,8 @@ class UserService:
         self.get_user(user_id)
     
 
-    def get_user (self, id: int):
-        response = requests.get(f'{self.url}/{id}')
+    def get_user (self, user_id: int):
+        response = requests.get(f'{self.url}/{user_id}')
         data = response.json()
         self.user = User(name=data['name'], username=data['username'], email=data['email'])
 
@@ -25,11 +25,3 @@ class UserService:
 
 
 
-
-
-"""
-id	1
-name	"Leanne Graham"
-username	"Bret"
-email	"Sincere@april.biz"
-"""

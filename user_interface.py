@@ -3,6 +3,8 @@ import os
 import json
 import sys
 
+from services.user_service import UserService
+
 
 OFFERS_FILE = "offers.json"
 PRODUCTS_FILE = "products.json"
@@ -186,7 +188,13 @@ def print_offer(offer):
 
 
 def menu(offers, products, customers):
-    #os.system('cls')  # Use 'clear' on Linux/Mac
+    #os.system('cls')
+    user_log = int(input('Unesite vas ID: '))
+    userservice = UserService(user_id=user_log)
+    if userservice:
+        print (userservice.user.name)
+ 
+
     print("\nOffers Calculator izbornik:")
     print("1. Kreiraj novu ponudu")
     print("2. Upravljanje proizvodima")

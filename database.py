@@ -2,6 +2,7 @@ import sqlite3
 from typing import Any, Tuple
 
 
+
 # SQL Queries
 create_customer_table = """
 CREATE TABLE IF NOT EXISTS customers (
@@ -41,6 +42,25 @@ CREATE TABLE IF NOT EXISTS product_items (
     FOREIGN KEY (product_id) REFERENCES products (id)
 );
 """
+def create_db ():
+    try:
+
+        with sqlite3.connect('db.sqlite3') as conn:
+            cursor = conn.cursor()
+            cursor.execute(create_customer_table) 
+            cursor.execute(create_product_table) 
+            cursor.execute(create_offer_table) 
+            cursor.execute(create_product_item_table) 
+            conn.commit()
+
+        from models.from_json_to_db import populate_customer, populate_product, populate_offer, populate_product_item
+        populate_customer()
+        populate_product()
+        populate_offer()
+        populate_product_item()
+
+    except Exception as ex:
+        print (f'Dogodila se greska u create_tables: {ex}')
 
 
 
@@ -153,19 +173,4 @@ def delete_product(product_id:Tuple):
 delete_product_item_query = """DELETE FROM product_items WHERE id = ?"""
 def delete_product_item(product_item_id:Tuple):
     commit_in_db(delete_product_item_query, product_item_id)
-
-def create_db ():
-    try:
-
-        with sqlite3.connect('db.sqlite3') as conn:
-            cursor = conn.cursor()
-            cursor.execute(create_customer_table) 
-            cursor.execute(create_product_table) 
-            cursor.execute(create_offer_table) 
-            cursor.execute(create_product_item_table) 
-            conn.commit()
-
-    except Exception as ex:
-        print (f'Dogodila se greska u create_tables: {ex}')
-
 

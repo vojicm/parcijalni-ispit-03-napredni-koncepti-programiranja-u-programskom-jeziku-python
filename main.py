@@ -23,7 +23,5 @@ def main():
 
 if __name__ == "__main__":
     create_db()
-    user_service = UserService(user_id=5)
-    print(user_service.user.name)
-    
+   
     main()
