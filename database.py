@@ -26,7 +26,12 @@ create_offer_table = """
 CREATE TABLE IF NOT EXISTS offers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     offer_number INTEGER NOT NULL,
-    date TEXT NOT NULL
+    date TEXT NOT NULL,
+    customer_id INTEGER,
+    sub_total FLOAT,
+    tax FLOAT,
+    total FLOAT,
+    FOREIGN KEY (customer_id) REFERENCES customers (id)
 );
 """
 
@@ -94,7 +99,7 @@ create_customer_query = """INSERT INTO customers(name, email, vat_id) VALUES(?,?
 def create_customer(customer: Tuple):
     commit_in_db(create_customer_query, customer)
     # CREATE OFFER
-create_offer_query= """INSERT INTO offers(offer_number, date) VALUES(?,?)"""
+create_offer_query= """INSERT INTO offers(offer_number, date, customer_id, sub_total, tax, total) VALUES (?, ?, ?, ?, ?, ?)"""
 
     # CREATE PRODUCT
 create_product_query = """INSERT INTO products(name, description, price) VALUES(?,?,?)"""

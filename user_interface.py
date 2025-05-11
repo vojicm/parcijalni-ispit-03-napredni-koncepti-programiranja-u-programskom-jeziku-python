@@ -5,7 +5,8 @@ import sys
 
 
 from models.offer_model import Offer
-from models.product_model import Product
+from models.product_model import Product, ProductItem
+from models.customer_model import Customer
 from services.user_service import UserService
 
 
@@ -93,17 +94,31 @@ def create_new_offer(offers, products, customers):
     }
     offers.append(offer)
     save_data(OFFERS_FILE, offers)
-
-    offer = Offer (offer_number=offer[offer_number])
     
+    product_item = []
+    for item in items:
+        product_instance = Product(
+            id=item['product_id'],
+            name=item['product_name'],
+            description=item['description'],
+            price=item['price']
+        )
+        product_item_instance = ProductItem (product=product_instance, quantity=quantity)
+        product_item.append(product_item_instance)
 
-
-
+    offer_instance = Offer (offer_number=offer_number, customer=customer_choice, date_str=date, items=product_item, tax=tax_rate)
+    offer_tuple = (
+        offer_instance.offer_number,
+        offer_instance.date_str,
+        offer_instance.customer,
+        offer_instance.sub_total,
+        offer_instance.tax,
+        offer_instance.total
+    )
+    offer_instance.create_offer(offer_tuple)
+  
     print("Offer created successfully.")
-
     
-
-
 def manage_products(products):
     action = input("Do you want to add a new product or modify an existing one? (add/modify): ").lower()
 

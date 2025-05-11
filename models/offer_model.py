@@ -11,8 +11,8 @@ from .product_model import Product, ProductItem
 class Offer:
     def __init__(self,
                  offer_number:int, 
-                 customer: Customer = None, 
                  date_str: str = dt.today().strftime('%Y-%m-%d'),
+                 customer: int = 0, 
                  items:List[ProductItem] = [],
                  tax: float = 25.0
                  ):
@@ -41,10 +41,9 @@ class Offer:
         self.tax_value = self.sub_total * (self.tax/100)
         self.total = self.sub_total + self.tax_value
     
-
-    
     def create_offer (self, offer: Tuple):
         commit_in_db(create_offer_query, offer)
+
 
     def get_offer (self):
         pass
