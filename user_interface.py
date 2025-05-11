@@ -4,6 +4,7 @@ import json
 import sys
 
 
+from models.offer_model import Offer
 from models.product_model import Product
 from services.user_service import UserService
 
@@ -92,6 +93,12 @@ def create_new_offer(offers, products, customers):
     }
     offers.append(offer)
     save_data(OFFERS_FILE, offers)
+
+    offer = Offer (offer_number=offer[offer_number])
+    
+
+
+
     print("Offer created successfully.")
 
     
