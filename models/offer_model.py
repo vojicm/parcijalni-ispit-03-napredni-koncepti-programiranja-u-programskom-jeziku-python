@@ -1,5 +1,7 @@
 from datetime import datetime as dt
-from typing import List
+from typing import List, Tuple
+
+from database import commit_in_db, create_offer_query
 
 from .customer_model import Customer
 from .product_model import Product, ProductItem
@@ -40,9 +42,9 @@ class Offer:
         self.total = self.sub_total + self.tax_value
     
 
-        
-    def create_offer (self):
-        pass
+    
+    def create_offer (self, offer: Tuple):
+        commit_in_db(create_offer_query, offer)
 
     def get_offer (self):
         pass

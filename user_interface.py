@@ -3,6 +3,8 @@ import os
 import json
 import sys
 
+
+from models.product_model import Product
 from services.user_service import UserService
 
 
@@ -92,6 +94,8 @@ def create_new_offer(offers, products, customers):
     save_data(OFFERS_FILE, offers)
     print("Offer created successfully.")
 
+    
+
 
 def manage_products(products):
     action = input("Do you want to add a new product or modify an existing one? (add/modify): ").lower()
@@ -104,6 +108,12 @@ def manage_products(products):
         product = {"id": product_id, "name": product_name, "description": product_description, "price": product_price}
         products.append(product)
         save_data(PRODUCTS_FILE, products)
+
+        product = Product (id=product['id'], name=product['name'], description=product['description'], price=product['price'])
+        product_tuple = (product_name, product_description, product_price)
+        product.create_product(product_tuple)
+        
+
         print("Product added successfully.")
 
     elif action == "modify":
@@ -179,7 +189,7 @@ def display_offers(offers):
 
 def print_offer(offer):
     """Display details of a single offer."""
-    print(f"Ponuda br: {offer['offer_number']}, Kupac: {offer['customer']['name']}, Datum ponude: {offer['date']}")
+    print(f"Ponuda br: {offer['offer_number']}, Kupac: {offer['customer']}, Datum ponude: {offer['date']}")
     print("Stavke:")
     for item in offer["items"]:
         print(f"  - {item['product_name']} (ID: {item['product_id']}): {item['description']}")
@@ -189,11 +199,6 @@ def print_offer(offer):
 
 def menu(offers, products, customers):
     #os.system('cls')
-    user_log = int(input('Unesite vas ID: '))
-    userservice = UserService(user_id=user_log)
-    if userservice:
-        print (userservice.user.name)
- 
 
     print("\nOffers Calculator izbornik:")
     print("1. Kreiraj novu ponudu")

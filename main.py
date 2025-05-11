@@ -1,5 +1,6 @@
 
 from datetime import datetime
+import sys
 from database import create_db
 from services import UserService
 
@@ -15,10 +16,18 @@ def main():
     offers = load_data(OFFERS_FILE)
     products = load_data(PRODUCTS_FILE)
     customers = load_data(CUSTOMERS_FILE)
+    
+    
+    user_log = int(input('Unesite vas ID: '))
+    userservice = UserService(user_id=user_log)
 
-    while True:
-        menu(offers, products, customers)
-        
+    if userservice.user != None:
+        print (userservice.user.name)
+        while True:
+            menu(offers, products, customers)
+            
+    else:
+        print("User not found.")
 
 
 if __name__ == "__main__":

@@ -53,11 +53,16 @@ def create_db ():
             cursor.execute(create_product_item_table) 
             conn.commit()
 
-        from models.from_json_to_db import populate_customer, populate_product, populate_offer, populate_product_item
-        populate_customer()
-        populate_product()
-        populate_offer()
-        populate_product_item()
+
+            cursor.execute('SELECT COUNT(*) FROM customers')
+            customer_count = cursor.fetchone()[0]
+
+        if customer_count == 0:
+            from models.from_json_to_db import populate_customer, populate_product, populate_offer, populate_product_item
+            populate_customer()
+            populate_product()
+            populate_offer()
+            populate_product_item()
 
     except Exception as ex:
         print (f'Dogodila se greska u create_tables: {ex}')
@@ -90,12 +95,9 @@ def create_customer(customer: Tuple):
     commit_in_db(create_customer_query, customer)
     # CREATE OFFER
 create_offer_query= """INSERT INTO offers(offer_number, date) VALUES(?,?)"""
-def create_offer(offer: Tuple):
-    commit_in_db(create_offer_query, offer)
+
     # CREATE PRODUCT
 create_product_query = """INSERT INTO products(name, description, price) VALUES(?,?,?)"""
-def create_product(product: Tuple):
-    commit_in_db(create_product_query, product)
     # CREATE PRODUCT_ITEM
 create_product_item_query = """INSERT INTO product_items(name, description, quantity, offer_id, product_id) VALUES(?,?,?,?,?)"""
 def create_product_item(product_item:Tuple):

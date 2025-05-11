@@ -1,4 +1,7 @@
 import sqlite3
+from typing import Tuple
+
+from database import commit_in_db, create_product_query
 
 
 class Product:
@@ -12,8 +15,8 @@ class Product:
         self.description = description
         self.price = price
     
-    def create_product (self):
-        pass
+    def create_product (self, product: Tuple):
+        commit_in_db(create_product_query, product)
 
     def get_product (self):
         pass

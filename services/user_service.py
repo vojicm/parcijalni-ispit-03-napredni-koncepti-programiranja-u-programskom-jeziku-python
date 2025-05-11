@@ -18,9 +18,12 @@ class UserService:
 
     def get_user (self, user_id: int):
         response = requests.get(f'{self.url}/{user_id}')
-        data = response.json()
-        self.user = User(name=data['name'], username=data['username'], email=data['email'])
-
+        if response.status_code == 200:
+            data = response.json()
+            if 'name'in data and 'username' in data and 'email' in data:
+                self.user = User(name=data['name'], username=data['username'], email=data['email'])
+        else:
+            self.user = None
 
 
 
