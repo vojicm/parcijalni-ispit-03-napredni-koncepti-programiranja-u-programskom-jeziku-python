@@ -234,49 +234,5 @@
         "sub_total": 24000.0,
         "tax": 4800.0,
         "total": 28800.0
-    },
-    {
-        "offer_number": 9,
-        "customer": {
-            "name": "Tech Solutions",
-            "email": "info@techsolutions.com",
-            "vat_id": "01234567890"
-        },
-        "date": "2025-05-11",
-        "items": [
-            {
-                "product_id": 19,
-                "product_name": "Mario",
-                "description": "Lik iz crtanog, stakleni",
-                "price": 100.0,
-                "quantity": 1,
-                "item_total": 100.0
-            }
-        ],
-        "sub_total": 100.0,
-        "tax": 25.0,
-        "total": 125.0
-    },
-    {
-        "offer_number": 10,
-        "customer": {
-            "name": "Tech Solutions",
-            "email": "info@techsolutions.com",
-            "vat_id": "01234567890"
-        },
-        "date": "2025-11-11",
-        "items": [
-            {
-                "product_id": 19,
-                "product_name": "Mario",
-                "description": "Lik iz crtanog, stakleni",
-                "price": 100.0,
-                "quantity": 3,
-                "item_total": 300.0
-            }
-        ],
-        "sub_total": 300.0,
-        "tax": 75.0,
-        "total": 375.0
     }
 ]
